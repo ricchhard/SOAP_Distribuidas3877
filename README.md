@@ -40,4 +40,49 @@ Descarga el archivo WSDL del servicio desde la URL:
 En Java, usa la herramienta `wsimport` para generar las clases cliente a partir del WSDL:
 
 ```bash
-wsimport -keep -s ./src -p com.example.calculator http://www.dneonline.com/calculator.asmx?WSDL
+`wsimport -keep -s ./src -p com.example.calculator http://www.dneonline.com/calculator.asmx?WSDL
+```
+
+- ** Opciones:
+-keep: Mantiene los archivos generados.
+-s ./src: Especifica el directorio donde se guardarán los archivos fuente.
+-p com.example.calculator: Define el paquete en el que se generan las clases.
+Esto generará las clases necesarias para consumir el servicio SOAP.
+
+## 3. Configurar en el Proyecto
+Incluye las clases generadas en tu proyecto y asegúrate de tener configuradas las dependencias necesarias.
+
+### Manual de Uso
+Paso 1: Consumir el Servicio
+Ejemplo en Java para consumir la operación Add:
+
+```java
+import com.example.calculator.Calculator;
+import com.example.calculator.CalculatorSoap;
+
+public class CalculatorClient {
+    public static void main(String[] args) {
+        Calculator service = new Calculator();
+        CalculatorSoap port = service.getCalculatorSoap();
+
+        // Operación Add
+        int result = port.add(10, 5);
+        System.out.println("Resultado de la suma: " + result);
+
+        // Operación Subtract
+        int subtractResult = port.subtract(10, 5);
+        System.out.println("Resultado de la resta: " + subtractResult);
+    }
+}
+```
+Paso 2: Probar el Servicio
+Asegúrate de que tu proyecto está correctamente configurado.
+Ejecuta el código y verifica los resultados en la consola.
+
+### Pruebas del Servicio
+Usar Postman o SOAP UI
+Abre la herramienta de prueba.
+Crea una nueva solicitud SOAP.
+Configura la URL del servicio:
+http://www.dneonline.com/calculator.asmx.
+Selecciona la operación deseada y envía los parámetros en el formato XML.
